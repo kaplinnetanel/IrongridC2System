@@ -1,6 +1,6 @@
 ﻿{
   "Kafka": {
-    "BootstrapServers": "9092:9092",
+    "BootstrapServers": "localhost:9092",
     "Topics": {
       "UAV": "uav",
       "PerimeterSensor": "PerimeterSensor"

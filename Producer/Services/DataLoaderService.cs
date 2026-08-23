@@ -19,7 +19,6 @@ public class DataLoaderService
     {
         string filePath = Path.Combine(_dataDirectory,"field_reports.json");
         string jsonString = File.ReadAllText(filePath);
-
         return JsonSerializer.Deserialize<List<IroGrid>>(jsonString, new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<IroGrid>();
     }
 

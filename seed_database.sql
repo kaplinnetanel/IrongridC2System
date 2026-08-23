@@ -3,7 +3,8 @@
 -- ============================================================
 
 -- Create the database required for the system.
-CREATE DATABASE  testDb;
+CREATE DATABASE IF NOT EXISTS testDb;
+USE testDb;
 
 
 -- ============================================================
@@ -13,15 +14,11 @@ CREATE DATABASE  testDb;
 -- Create the Units table.
 -- Define all required columns, data types, constraints,
 -- and the primary key according to the project specification.
- CONSTRAINT fk_user 
-        FOREIGN KEY (user_id) 
-        REFERENCES users(id) 
-        ON DELETE CASCADE   
-
-CREATE TABLE UNITS (
-    id INT PRIMARY KEY  NOT NULL,              
+   
+CREATE TABLE Units (
+    Id INT PRIMARY KEY ,              
     UnitName  VARCHAR(255) DEFAULT "Unknown Unit",      
-    Sector  DEFAULT   CONSTRAINT fk_user    
+    Sector  VARCHAR(255) DEFAULT "General"  
 );
 
 -- ============================================================
@@ -32,17 +29,13 @@ CREATE TABLE UNITS (
 -- Define all required columns, data types, constraints,
 -- and the primary key according to the project specification.
 
-CREATE TABLE ASSETS (
-    id  INT PRIMARY KEY  NOT NULL, 
+    CREATE TABLE IF NOT EXISTS Assets(
+    Id  INT PRIMARY KEY , 
     UnitId INT NOT NULL,
     AssetSerial VARCHAR(255) NOT NULL,      
-    AssetType  DEFAULT "GenericAsset", 
-     PRIMARY KEY (id, UnitId), 
-     FOREIGN KEY (UnitId) 
-    REFERENCES UNITS (id) 
-      ON UPDATE RESTRICT 
-      ON DELETE CASCADE
-
+    AssetType  VARCHAR(255) DEFAULT "GenericAsset",  
+    FOREIGN KEY (UnitId) 
+    REFERENCES Units (Id)
 );
 
 -- ============================================================
@@ -54,20 +47,15 @@ CREATE TABLE ASSETS (
 -- and the primary key according to the project specification.
 -- יצירת טבלת מוצרים
 
-
-CREATE TABLE AssetLiveStatus (
-    AssetId  INT PRIMARY KEY  NOT NULL, 
-    AssetType INT NOT NULL,
+CREATE TABLE IF NOT EXISTS AssetLiveStatus (
+    AssetId  INT PRIMARY KEY , 
+    AssetType VARCHAR(255) NOT NULL,
     RawValue VARCHAR(255) NOT NULL,      
-    ProcessedStatus  DEFAULT "GenericAsset", 
-    IsVerified
-    LastUpdate
-     PRIMARY KEY (id, UnitId), 
-     FOREIGN KEY (UnitId) 
-    REFERENCES UNITS (id) 
-      ON UPDATE RESTRICT 
-      ON DELETE CASCADE
-
+    ProcessedStatus VARCHAR(255) NOT NULL, 
+    IsVerified BOOLEAN NOT NULL,
+    LastUpdate DATETIME NOT NULL, 
+    FOREIGN KEY (AssetId) 
+    REFERENCES Assets (Id) 
 );
 
 INSERT INTO Units (Id, UnitName, Sector) VALUES
@@ -172,7 +160,7 @@ INSERT INTO Units (Id, UnitName, Sector) VALUES
 (99, 'Recon Unit 512', 'Southern Sector'),
 (100, 'Perimeter Guard 982', 'Northern Sector');
 
-INSERT INTO Assets (Id, UnitId, AssetSerial, Type) VALUES
+INSERT INTO Assets (Id, UnitId, AssetSerial, AssetType) VALUES
 (1, 1, 'SENSOR-NORTH-872', 'PerimeterSensor'),
 (2, 1, 'UAV-COAST-070', 'UAV'),
 (3, 2, 'SENSOR-EAST-414', 'PerimeterSensor'),
