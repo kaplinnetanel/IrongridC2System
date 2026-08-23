@@ -13,12 +13,15 @@ CREATE DATABASE  testDb;
 -- Create the Units table.
 -- Define all required columns, data types, constraints,
 -- and the primary key according to the project specification.
-
+ CONSTRAINT fk_user 
+        FOREIGN KEY (user_id) 
+        REFERENCES users(id) 
+        ON DELETE CASCADE   
 
 CREATE TABLE UNITS (
     id INT PRIMARY KEY  NOT NULL,              
     UnitName  VARCHAR(255) DEFAULT "Unknown Unit",      
-    Sector  DEFAULT  
+    Sector  DEFAULT   CONSTRAINT fk_user    
 );
 
 -- ============================================================
@@ -29,12 +32,17 @@ CREATE TABLE UNITS (
 -- Define all required columns, data types, constraints,
 -- and the primary key according to the project specification.
 
-CREATE TABLE UNITS (
+CREATE TABLE ASSETS (
     id  INT PRIMARY KEY  NOT NULL, 
-    UnitId INT 
-    UnitName DEFAULT "Unknown Unit",      
-    Sector TIMESTAMP DEFAULT  
-     ON DELETE CASCADE
+    UnitId INT NOT NULL,
+    AssetSerial VARCHAR(255) NOT NULL,      
+    AssetType  DEFAULT "GenericAsset", 
+     PRIMARY KEY (id, UnitId), 
+     FOREIGN KEY (UnitId) 
+    REFERENCES UNITS (id) 
+      ON UPDATE RESTRICT 
+      ON DELETE CASCADE
+
 );
 
 -- ============================================================
@@ -47,7 +55,20 @@ CREATE TABLE UNITS (
 -- יצירת טבלת מוצרים
 
 
+CREATE TABLE AssetLiveStatus (
+    AssetId  INT PRIMARY KEY  NOT NULL, 
+    AssetType INT NOT NULL,
+    RawValue VARCHAR(255) NOT NULL,      
+    ProcessedStatus  DEFAULT "GenericAsset", 
+    IsVerified
+    LastUpdate
+     PRIMARY KEY (id, UnitId), 
+     FOREIGN KEY (UnitId) 
+    REFERENCES UNITS (id) 
+      ON UPDATE RESTRICT 
+      ON DELETE CASCADE
 
+);
 
 INSERT INTO Units (Id, UnitName, Sector) VALUES
 (1, 'Special Ops 214', 'Northern Sector'),
