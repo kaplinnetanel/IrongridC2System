@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Consumer.Models;
+namespace Api.Models;
 
 public class Assets
 {
@@ -18,5 +13,5 @@ public class Assets
     public string AssetSerial { get; set; } = string.Empty;
     public string AssetType { get; set; } = "GenericAsset";
     public Units Units { get; set; } = null!;
-    public AssetLiveStatus assetLiveStatus { get; set; } = null!;
+    public AssetLiveStatus? assetLiveStatus { get; set; }
 }
