@@ -58,18 +58,20 @@ public class ProcessingService
 
             if (Lowercaseword == "good")
             {
-
+                wVa = "Good";
                 isVerified = true;
                 processedStatus = "Stable";
 
             }
             if (Lowercaseword == "bad")
             {
+                wVa = "Bad";
                 isVerified = true;
                 processedStatus = "Warning";
             }
             else
             {
+                wVa = "null";
                 isVerified = false;
                 processedStatus = "Warning";
 

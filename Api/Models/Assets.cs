@@ -13,5 +13,5 @@ public class Assets
     public string AssetSerial { get; set; } = string.Empty;
     public string AssetType { get; set; } = "GenericAsset";
     public Units Units { get; set; } = null!;
-    public AssetLiveStatus? assetLiveStatus { get; set; }
+    public AssetLiveStatus assetLiveStatus { get; set; } = null!;
 }
